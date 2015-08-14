@@ -107,6 +107,7 @@ module.exports = {
       './lib/ui/filters/approximate.js',
       './lib/ui/badge/badge.js',
       './lib/ui/form/form-config-service.js',
+      './lib/ui/form/form-config-directive.js',
       './lib/ui/form/required-field-combinations-validator.js'
     ],
     specs: './lib/ui/**/*spec.js',

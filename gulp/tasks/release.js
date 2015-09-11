@@ -20,8 +20,7 @@ gulp.task('release:sequence', function() {
     'test:ci',
     'clean:dist',
     'release:bump',
-    ['dist:lib', 'dist:ui', 'dist:templates'],
-    'av:readme',
+    ['dist:lib', 'dist:ui', 'dist:templates', 'dist:css'],
     'release:tag'
   );
 });

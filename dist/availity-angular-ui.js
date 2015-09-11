@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.15.2 -- August-24
+ * availity-angular v0.16.0 -- September-09
  * Copyright 2015 Availity, LLC 
  */
 
@@ -1016,6 +1016,7 @@
     this.ngModel = null;
 
     this.init = function() {
+
       _.forEach($attrs, function(value, key) {
         if(_.contains(AV_DROPDOWN.OPTIONS, key.replace('data-', ''))) {
           self.options[key] = $scope.$eval(value);
@@ -1093,6 +1094,7 @@
     };
 
     this.setValue = function() {
+
       var viewValue = self.ngModel.$viewValue;
       var selected = null;
       if(viewValue) {
@@ -1107,6 +1109,7 @@
     };
 
     this.getMultiSelected = function(viewValue) {
+
       var options = this.collection($scope);
       var indices = [];
 
@@ -1127,6 +1130,7 @@
     };
 
     this.setValues = function() {
+
       var viewValue = self.ngModel.$viewValue;
 
       if(!angular.isArray(viewValue)) {
@@ -1144,6 +1148,7 @@
     };
 
     this.ngOptions = function() {
+
       this.match = $attrs.ngOptions.match(AV_UI.NG_OPTIONS);
       if(!this.match) {
         throw new Error('Invalid ngOptions for avDropdown');
@@ -1209,6 +1214,7 @@
   });
 
   availity.ui.directive('avDropdown', function($timeout, $log, $window) {
+
     return {
       restrict: 'A',
       require: ['ngModel', 'avDropdown'],
@@ -1440,7 +1446,7 @@
       var localDate = plugin._utc_to_local(utcDate);
       // jscs: enable
 
-      if(self.options.modelFormat) {
+      if(self.options.modelFormat && localDate) {
         localDate = moment(localDate).format(self.options.modelFormat);
       }
 
@@ -2070,6 +2076,12 @@
   availity.ui.controller('AvLoaderController', function($element) {
 
     var self = this;
+    var active;
+
+    this.start = function() {
+      active = true;
+      this.animate();
+    };
 
     this.animate = function() {
 
@@ -2080,15 +2092,23 @@
           delay: 750,
           duration: 500,
           complete: function() {
-            self.stop();
+            if(active) {
+              setTimeout(function() {self.animate();}, 500);
+            } else {
+              self.endAnimation();
+            }
           }
         });
 
     };
 
-    this.stop = function() {
+    this.endAnimation = function() {
       $element.find('.loading-bullet').velocity('stop', true);
       $element.removeData();
+    };
+
+    this.stop = function() {
+      active = false;
     };
 
   });
@@ -2102,15 +2122,97 @@
       templateUrl: AV_LOADER.TEMPLATES.LOADER,
       link: function(scope, element, attr, avLoader) {
 
-        var timer = setInterval(avLoader.animate, 2000);
+        if(!attr.delay) {
+          avLoader.start();
+        }
 
         scope.$on('$destroy', function() {
           avLoader.stop();
-          clearInterval(timer);
         });
 
       }
     };
+  });
+
+})(window);
+
+// Source: /lib/ui/block/block.js
+(function(root) {
+
+  'use strict';
+
+  var availity = root.availity;
+
+  var blockTemplate =
+    '<div ng-show="state.blockCount > 0" class="block-ui-overlay" ng-class="{ \'block-ui-visible\': state.blocking }"></div>' +
+    '<div ng-show="state.blocking" class="block-ui-message-container">' +
+    '  <div class="av-block-ui-message">' +
+    '    <div data-av-loader data-delay="true" class="loading-indicator"></div>' +
+    '  </div>' +
+    '</div>';
+
+  availity.ui.constant('AV_BLOCK', {
+    TEMPLATES: {
+      BLOCK: 'ui/modal/modal-tpl.html'
+    }
+  });
+
+  var getLoaderController = function(blockId) {
+    var el = $('[data-block-ui="' + blockId + '"]') || $('[block-ui="' + blockId + '"]');
+    if(el) {
+      return el.find('[data-av-loader]').controller('avLoader');
+    }
+  };
+
+  var triggerLoaderController = function(id, instance, fn) {
+    var controller = instance.loaderController;
+    if(!controller) {
+      controller = getLoaderController(id);
+      instance.loaderController = controller;
+    }
+    if(controller && _.isFunction(controller[fn])) {
+      controller[fn]();
+    }
+  };
+
+  var triggerInstance = function(id, instance, origFn, loaderFn) {
+    triggerLoaderController(id, instance, loaderFn);
+    origFn.apply(instance);
+  };
+
+  var modifyBlockInstances = function(id, instance) {
+    var origStartFn = instance.start;
+    var origStopFn = instance.stop;
+    instance.start = function() {
+      triggerInstance(id, instance, origStartFn, 'start');
+    };
+    instance.stop = function() {
+      triggerInstance(id, instance, origStopFn, 'stop');
+    };
+    instance.avModifications = true;
+  };
+
+  availity.ui.run(function($injector, $log) {
+    try {
+
+      var blockUIConfig = $injector.get('blockUIConfig');
+      var blockUI = $injector.get('blockUI');
+      blockUIConfig.autoBlock = false;
+      blockUIConfig.delay = 0;
+      blockUIConfig.template = blockTemplate;
+
+      var origGetFn = blockUI.instances.get;
+      blockUI.instances.get = function(id) {
+        var instance = origGetFn(id);
+        if(!instance.avModifications) {
+          modifyBlockInstances(id, instance);
+        }
+        return instance;
+      };
+
+    } catch(e) {
+      $log.warn('blockUI is required to use av block.');
+    }
   });
 
 })(window);

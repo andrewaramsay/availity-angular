@@ -1,0 +1,74 @@
+---
+title: Daterange
+---
+<div data-ng-controller="DaterangeController">
+
+  <div class="guide-example">
+    <form name="daterangeForm">
+      <div class="form-group">
+        <label for="withIcon">With Icon</label>
+        <div class='input-group date' >
+          <input type="text"
+           class="form-control"
+           id="withIcon"
+           data-ng-model="demo1.date1"
+           av-daterange
+          />
+          <span class="input-group-btn" data-toggle="daterange">
+            <button class="btn btn-default" type="button"><span class="icon icon-calendar"></span></button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="noIcon">No Icon</label>
+        <input type="text"
+         class="form-control"
+         id="noIcon"
+         data-ng-model="demo1.date2"
+         data-av-daterange
+        />
+      </div>
+    </form>
+  </div>
+  <code class="language-markup">
+<form name="daterangeForm">
+  <div class="form-group">
+    <label for="withIcon">With Icon</label>
+    <div class='input-group date' >
+      <input type="text"
+       class="form-control"
+       id="withIcon"
+       data-ng-model="demo.date1"
+       data-av-daterange
+      />
+      <span class="input-group-btn" data-toggle="daterange">
+        <button class="btn btn-default" type="button"><span class="icon icon-calendar"></span></button>
+      </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="noIcon">No Icon</label>
+    <input type="text"
+     class="form-control"
+     id="noIcon"
+     data-ng-model="demo.date2"
+     data-av-daterange
+    />
+  </div>
+</form>
+
+<!-- Javascript -->
+<script>
+var demo = angular.module('demo', ['aviality', 'availity-ui']);
+
+demo.controller('DaterangeController', function($scope) {
+
+  $scope.demo = {
+    date1: new Date(),
+    date2: null
+  };
+
+});
+</script>
+  </code>
+</div>

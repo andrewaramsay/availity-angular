@@ -1,42 +1,37 @@
-<div class="daterangepicker dropdown-menu">
-  <div class="ranges pull-left">
-    <div class="range_inputs">
-      <section>
-        <div class="input-group date">
-          <label>From</label>
-          <div class="date-input">
-           <input class="input-mini" type="text" name="daterangepicker_start" value=""/>
-           <i class="icon icon-calendar glyphicon glyphicon-calendar"></i>
+<div class="daterangepicker">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="ranges">
+        <div class="range_inputs">
+          <div class="input-group date">
+            <div class="date-input pull-right">
+              <label for="date-end">To</label>
+              <input class="input-mini pull-right" type="text" name="daterangepicker_end" id="date-end" value="{{day2.format('MM-DD-YYYY')}}"/>
+            </div>
+            <div class="date-input">
+              <label for="date-start">From</label>
+              <input class="input-mini" type="text" name="daterangepicker_start" id="date-start" value="{{day1.format('MM-DD-YYYY')}}"/>
+            </div>
           </div>
-          <label>To</label>
-          <div class="date-input">
-           <input class="input-mini pull-right" type="text" name="daterangepicker_end" value=""/>
-            <i class="icon icon-calendar glyphicon glyphicon-calendar"></i>
-          </div>
+
+          <button class="btn btn-primary applyBtn" disabled="disabled" type="button">Apply</button>
+          <button class="btn btn-default cancelBtn pull-right" type="button">Cancel</button>
+
         </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="calendar left pull-left">
+        <div class="daterangepicker_input"></div>
+        <div av-calendar selected="day1"></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="calendar right pull-left">
+        <div class="daterangepicker_input"></div>
+        <div av-calendar selected="day2"></div>
 
-        <button class="btn btn-primary applyBtn" disabled="disabled" type="button">Apply</button>
-        <button class="btn btn-default cancelBtn" type="button">Cancel</button>
-      </section>
+      </div>
     </div>
   </div>
-  <div class="calendar left pull-left">
-    <div class="daterangepicker_input">
-      <!--<div class="calendar-time">-->
-        <!--<div>Time</div>-->
-        <!--<i class="icon icon-clock-o glyphicon glyphicon-time"></i>-->
-      <!--</div>-->
-    </div>
-    <div class="calendar-table"></div>
-  </div>
-  <div class="calendar right pull-left">
-    <div class="daterangepicker_input">
-      <!--<div class="calendar-time">-->
-        <!--<div>Time</div>-->
-        <!--<i class="icon icon-clock-o glyphicon glyphicon-time"></i>-->
-      <!--</div>-->
-    </div>
-    <div class="calendar-table"></div>
-  </div>
-
 </div>

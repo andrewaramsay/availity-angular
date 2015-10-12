@@ -453,111 +453,118 @@
   @icon-width: 30px;
   @header-height: 40px;
 
-  > div.calendar-header {
-    float: left;
-    width: 100%;
-    //background:@secondary-colour;
-    height: @header-height;
-    color: #000;
+  > div div.calendar {
 
-    > * {
-      .vertical-centre(@header-height);
-    }
-
-    > i {
-      float: left;
-      width: @icon-width;
-      font-size: 1.125em;
-      font-weight: bold;
-      position: relative;
-      .border-box;
-      padding: 0 @spacing;
-      cursor: pointer;
-      margin: 0px;
-      border-radius: 4px;
-    }
-
-    > i:hover {
-      background: #eee;
-    }
-
-    > i.icon-angle-double-left {
-      text-align: left;
-    }
-
-    > i.icon-angle-double-right {
-      text-align: right;
-      margin-left: @icon-width*-1;
-    }
-
-    > span {
+    > div.calendar-header {
       float: left;
       width: 100%;
-      font-weight: bold;
-      .border-box;
-      padding-left: @icon-width+@title-spacing;
-      margin-left: @icon-width*-1;
-      text-align: center;
-      padding-right: @icon-width;
-      color: inherit;
-    }
-  }
-  > div.week {
-    float: left;
-    width: 100%;
-    //border-top:solid 1px @border-colour;
+      //background:@secondary-colour;
+      height: @header-height;
+      color: #000;
 
-    &:first-child {
-      border-top: none;
-    }
-
-    &.names {
-      > .day:hover {
-        cursor: default;
-        background: none;
-      }
-    }
-
-    > span.day {
-      float: left;
-      width: 100%/7;
-      .border-box;
-      //border-left:solid 1px @border-colour;
-      text-align: center;
-      .vertical-centre(30px);
-      background: white;
-      cursor: pointer;
-      color: black;
-
-      &:first-child {
-        border-left: none;
+      > * {
+        .vertical-centre(@header-height);
       }
 
-      &.today {
-        background-color: #ffc966;
-        border-color: #f59e00;
+      > i {
+        float: left;
+        width: @icon-width;
+        font-size: 1.125em;
+        font-weight: bold;
+        position: relative;
+        .border-box;
+        padding: 0 @spacing;
+        cursor: pointer;
+        margin: 0px;
         border-radius: 4px;
       }
 
-      &.different-month {
-        color: #C0C0C0;
-      }
-
-      &.selected {
-        background: @secondary-colour;
-        border-radius: 4px 0 0 4px;
-        color: white;
-      }
-
-      &:hover {
-        border-radius: 4px;
+      > i:hover {
         background: #eee;
       }
-    }
 
-    &.names > span {
-      color: black;
-      font-weight: bold;
+      > i.icon-angle-double-left {
+        text-align: left;
+      }
+
+      > i.icon-angle-double-right {
+        text-align: right;
+        margin-left: @icon-width*-1;
+      }
+
+      > span {
+        float: left;
+        width: 100%;
+        font-weight: bold;
+        .border-box;
+        padding-left: @icon-width+@title-spacing;
+        margin-left: @icon-width*-1;
+        text-align: center;
+        padding-right: @icon-width;
+        color: inherit;
+      }
+    }
+    > div.week {
+      float: left;
+      width: 100%;
+      //border-top:solid 1px @border-colour;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      &.names {
+        > .day:hover {
+          cursor: default;
+          background: none;
+        }
+      }
+
+      > span.day {
+        float: left;
+        width: 100%/7;
+        .border-box;
+        //border-left:solid 1px @border-colour;
+        text-align: center;
+        .vertical-centre(30px);
+        background: white;
+        cursor: pointer;
+        color: black;
+
+        &:first-child {
+          border-left: none;
+        }
+
+        &.today {
+          background-color: #ffc966;
+          border-color: #f59e00;
+          border-radius: 4px;
+        }
+
+        &.different-month {
+          color: #C0C0C0;
+          &.selected{
+            background: none;
+            color: #C0C0C0;
+          }
+        }
+
+        &.selected {
+          background: @secondary-colour;
+          border-radius: 4px 0 0 4px;
+          color: white;
+        }
+
+        &:hover {
+          border-radius: 4px;
+          background: #eee;
+        }
+      }
+
+      &.names > span {
+        color: black;
+        font-weight: bold;
+      }
     }
   }
 }

@@ -43,7 +43,6 @@
 //  top: 8px;
 //}
 
-
 /**
 * A stylesheet for use with Bootstrap 3.x
 * @author: Dan Grossman http://www.dangrossman.info/
@@ -55,6 +54,7 @@
 /* Container Appearance */
 
 .daterangepicker {
+  z-index: 100;
   position: absolute;
   background: #fff;
   top: 100px;
@@ -142,18 +142,20 @@
   content: '';
 }
 
-.daterangepicker.dropup{
+.daterangepicker.dropup {
   margin-top: -5px;
 }
-.daterangepicker.dropup:before{
+
+.daterangepicker.dropup:before {
   top: initial;
-  bottom:-7px;
+  bottom: -7px;
   border-bottom: initial;
   border-top: 7px solid #ccc;
 }
-.daterangepicker.dropup:after{
+
+.daterangepicker.dropup:after {
   top: initial;
-  bottom:-6px;
+  bottom: -6px;
   border-bottom: initial;
   border-top: 6px solid #fff;
 }
@@ -172,6 +174,7 @@
 }
 
 .daterangepicker .ranges {
+  width: 100%;
   text-align: left;
 }
 
@@ -332,6 +335,10 @@
   }
 }
 
+.daterangepicker .date {
+  width: 100%;
+}
+
 .daterangepicker .date-input {
   width: 46%;
   padding-bottom: 10px;
@@ -386,7 +393,6 @@
   color: #fff;
 }
 
-
 .daterangepicker .calendar table tr td.today {
   background-color: #ffc966;
   border-color: #f59e00;
@@ -394,7 +400,7 @@
   &.off {
     background: none;
     &.in-range {
-      background:none;
+      background: none;
     }
   }
   &.end-date {
@@ -409,120 +415,150 @@
   }
 }
 
+//Extra Styling
+.hover {
+  background-color: #777;
+}
+
+.right-calendar {
+  > .selected {
+    border-radius: 0px 4px 4px 0px !important;
+  }
+}
+
 //Calendar styles//
 .vertical-centre (@height) {
-  height:@height;
-  line-height:@height !important;
-  display:inline-block;
-  vertical-align:middle;
+  height: @height;
+  line-height: @height !important;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .border-box {
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-@border-colour:#CCC;
+@border-colour: #CCC;
 [av-calendar] {
-  float:left;
-  display:block;
+  float: left;
+  display: block;
   .border-box;
-  background:white;
-  width:100%;
+  background: white;
+  width: 100%;
 
-  @secondary-colour:#2875C7;
-  @spacing:10px;
-  @title-spacing:5px;
-  @icon-width:30px;
-  @header-height:40px;
+  @secondary-colour: #2875C7;
+  @spacing: 10px;
+  @title-spacing: 5px;
+  @icon-width: 30px;
+  @header-height: 40px;
 
-  >div.calendar-header {
-    float:left;
-    width:100%;
+  > div.calendar-header {
+    float: left;
+    width: 100%;
     //background:@secondary-colour;
-    height:@header-height;
-    color:#000;
+    height: @header-height;
+    color: #000;
 
-    >* {
+    > * {
       .vertical-centre(@header-height);
     }
 
-    >i {
-      float:left;
-      width:@icon-width;
-      font-size:1.125em;
-      font-weight:bold;
-      position:relative;
+    > i {
+      float: left;
+      width: @icon-width;
+      font-size: 1.125em;
+      font-weight: bold;
+      position: relative;
       .border-box;
-      padding:0 @spacing;
-      cursor:pointer;
+      padding: 0 @spacing;
+      cursor: pointer;
       margin: 0px;
+      border-radius: 4px;
     }
 
-    >i.icon-angle-double-left {
-      text-align:left;
+    > i:hover {
+      background: #eee;
     }
 
-    >i.icon-angle-double-right {
-      text-align:right;
-      margin-left:@icon-width*-1;
+    > i.icon-angle-double-left {
+      text-align: left;
     }
 
-    >span {
-      float:left;
-      width:100%;
-      font-weight:bold;
-      text-transform:uppercase;
+    > i.icon-angle-double-right {
+      text-align: right;
+      margin-left: @icon-width*-1;
+    }
+
+    > span {
+      float: left;
+      width: 100%;
+      font-weight: bold;
       .border-box;
-      padding-left:@icon-width+@title-spacing;
-      margin-left:@icon-width*-1;
-      text-align:center;
-      padding-right:@icon-width;
-      color:inherit;
+      padding-left: @icon-width+@title-spacing;
+      margin-left: @icon-width*-1;
+      text-align: center;
+      padding-right: @icon-width;
+      color: inherit;
     }
   }
-  >div.week {
-    float:left;
-    width:100%;
+  > div.week {
+    float: left;
+    width: 100%;
     //border-top:solid 1px @border-colour;
 
     &:first-child {
-      border-top:none;
+      border-top: none;
     }
 
-    >span.day {
-      float:left;
-      width:100%/7;
+    &.names {
+      > .day:hover {
+        cursor: default;
+        background: none;
+      }
+    }
+
+    > span.day {
+      float: left;
+      width: 100%/7;
       .border-box;
       //border-left:solid 1px @border-colour;
-      font-size:0.75em;
-      text-align:center;
+      text-align: center;
       .vertical-centre(30px);
-      background:white;
-      cursor:pointer;
-      color:black;
+      background: white;
+      cursor: pointer;
+      color: black;
 
       &:first-child {
-        border-left:none;
+        border-left: none;
       }
 
       &.today {
-        background:#E3F2FF;
+        background-color: #ffc966;
+        border-color: #f59e00;
+        border-radius: 4px;
       }
 
       &.different-month {
-        color:#C0C0C0;
+        color: #C0C0C0;
       }
 
       &.selected {
-        background:@secondary-colour;
-        color:white;
+        background: @secondary-colour;
+        border-radius: 4px 0 0 4px;
+        color: white;
+      }
+
+      &:hover {
+        border-radius: 4px;
+        background: #eee;
       }
     }
 
-    &.names>span {
-      color:black;
-      font-weight:bold;
+    &.names > span {
+      color: black;
+      font-weight: bold;
     }
   }
 }
+

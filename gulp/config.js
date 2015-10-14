@@ -81,6 +81,8 @@ module.exports = {
       './lib/core/validation/validators/validator-date-range.js',
       './lib/core/validation/validators/validator-date-format.js',
       './lib/core/validation/validators/validator-one-required.js',
+      './lib/core/validation/validators/validator-phone.js',
+      './lib/core/validation/validators/validator-email.js',
       './lib/core/utils/globals.js',
       './lib/core/analytics/analytics.js',
       './lib/core/analytics/analytics-util.js',
@@ -124,7 +126,8 @@ module.exports = {
       './lib/ui/form/form-config-directive.js',
       './lib/ui/form/required-field-combinations-validator.js',
       './lib/ui/block/block.js',
-      './lib/ui/block/block-directive.js'
+      './lib/ui/block/block-directive.js',
+      './lib/ui/tabs/tabs.js'
     ],
     specs: './lib/ui/**/*spec.js',
     destDist: './dist',
@@ -233,8 +236,8 @@ module.exports = {
       'bower_components/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
       'bower_components/angular-shims-placeholder/dist/angular-shims-placeholder.js',
       'bower_components/tracekit/tracekit.js',
-      './bower_components/angular-block-ui/dist/angular-block-ui.js',
-      './bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-block-ui/dist/angular-block-ui.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'test/index.js',
       'test/matchers.js',
       'test/helpers.js'

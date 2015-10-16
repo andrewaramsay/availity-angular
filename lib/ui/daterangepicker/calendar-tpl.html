@@ -16,8 +16,8 @@
       </div>
       <div class="week" ng-repeat="week in weeksLeft">
         <span class="day"
-              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }"
-              ng-click="select(day)" ng-repeat="day in week.days">{{day.number}}</span>
+              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, startDate: day.date.isSame(selected) }"
+              ng-click="select(day); selectFrom({startDate:day})" ng-repeat="day in week.days">{{day.number}}</span>
       </div>
     </div>
   </div>
@@ -38,8 +38,8 @@
       </div>
       <div class="week" ng-repeat="week in weeksRight">
         <span class="day"
-              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }"
-              ng-click="select(day)" ng-repeat="day in week.days">{{day.number}}</span>
+              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, endDate: day.date.isSame(selected) }"
+              ng-click="select(day); selectTo({endDate:day})" ng-repeat="day in week.days">{{day.number}}</span>
       </div>
     </div>
   </div>

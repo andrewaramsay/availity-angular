@@ -1,5 +1,5 @@
 /**
- * availity-angular v0.16.1 -- September-15
+ * availity-angular v1.2.1 -- October-26
  * Copyright 2015 Availity, LLC 
  */
 
@@ -11,7 +11,7 @@
   'use strict';
 
   var availity = root.availity || {};
-  availity.VERSION = 'v0.16.1';
+  availity.VERSION = 'v1.2.1';
   availity.MODULE = 'availity';
   availity.core = angular.module(availity.MODULE, ['ng']);
 
@@ -20,7 +20,7 @@
 
   angular.module = function(name, deps) {
 
-    if(deps && _.indexOf(modules, name) !== -1 ) {
+    if(deps && _.indexOf(modules, name) !== -1 && !window.__karma__) {
       throw new Error('redefining module: ' + name);
     }
 
@@ -1760,7 +1760,9 @@
       'avValSize',
       'avValRequired',
       'avValDateRange',
-      'avValDate'
+      'avValDate',
+      'avValPhone',
+      'avValEmail'
     ]
   });
 
@@ -1860,7 +1862,7 @@
             return;
           }
 
-          var valid = validator.validate(value, rule);
+          var valid = validator.validate(value, rule, element);
 
           var validationResult = {
             valid: valid,
@@ -1878,6 +1880,7 @@
             violations.push(validationResult);
           }
           _valid = _valid && valid;
+
         });
 
         return {
@@ -2019,8 +2022,27 @@
 
     var validator =  {
       name: 'required',
-      validate: function(value) {
+      validate: function(value, rule, element) {
+
+        // Using ngModelController.$isEmpty for required checks.  A form component being empty is dependent on the
+        // type of field:
+        //
+        //    - radio
+        //    - checkbox
+        //    - text
+        //    - lists
+        //
+        // You can override $isEmpty for input directives whose concept of being empty is different to the
+        // default. Radio and checkboxes directive do this because in its case a value of `false`
+        // implies empty.
+        //
+        var ctrl = element && element.data('$ngModelController');
+        if(ctrl) {
+          return !ctrl.$isEmpty(value);
+        }
+
         return !avValUtils.isEmpty(value);
+
       }
     };
 
@@ -2118,6 +2140,50 @@
       }
     };
     return validator;
+  });
+})(window);
+
+// Source: /lib/core/validation/validators/validator-phone.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValPhone', function(avValPattern) {
+
+    var PHONE_PATTERN = /^([0-9][\.\-]?)?[(]{0,1}[0-9]{3}[)\.\- ]{0,1}[0-9]{3}[\.\- ]{0,1}[0-9]{4}$/;
+
+    var validator =  {
+      name: 'phone',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: PHONE_PATTERN }));
+      }
+    };
+
+    return validator;
+
+  });
+})(window);
+
+// Source: /lib/core/validation/validators/validator-email.js
+(function(root) {
+  'use strict';
+
+  var availity = root.availity;
+
+  availity.core.factory('avValEmail', function(avValPattern) {
+
+    var EMAIL_PATTERN = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+    var validator =  {
+      name: 'email',
+      validate: function(value, rule) {
+        return avValPattern.validate(value, angular.extend({}, rule, { value: EMAIL_PATTERN }));
+      }
+    };
+
+    return validator;
+
   });
 })(window);
 
@@ -2495,6 +2561,14 @@
       return props;
     };
 
+    // Function detects external links in order to allow the analytics framework to run
+    // before the browser follows a link.
+    //
+    //    - target="_self" - This opens an anchor in the same frame
+    //    - target="_parent" - Opens the in the next level up of a frame if they were nested to inside one another
+    //    - target="_top" - Opens the link as top document in the browser window
+    //    - target="_blank" - Opens link in new tab new tab
+    //
     proto.isExternalLink = function(attrs) {
       return attrs.href && !attrs.ngClick;
     };

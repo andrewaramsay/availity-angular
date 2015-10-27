@@ -1,13 +1,13 @@
 <div>
-  <span ng-transclude></span>
-  <div class="daterangepicker opensright" data-ng-if="!isToggled">
+  <span ng-transclude data-ng-click="vm.toggle($event)"></span>
+  <div class="daterangepicker opensright"  data-ng-if="!isToggled">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div class="ranges">
           <div class="range_inputs">
             <div class="input-group date">
               <form name="dateRangeInnerForm">
-                <div class="form-group date-input pull-left">
+                <div class="form-group date-input pull-left" style="margin-right:15px;">
                   <label for="date-start">From</label>
                   <input class="input-mini" type="text" id="date-start" data-av-mask="date" data-ng-model="startDate"/>
                 </div>
@@ -19,16 +19,18 @@
               </form>
             </div>
 
-            <button class="btn btn-primary applyBtn" data-ng-click="vm.isValidDateRange()" type="button">Apply</button>
+            <button class="btn btn-primary applyBtn" data-ng-click="vm.isValidDateRange()" type="submit">Apply</button>
             <button class="btn btn-default cancelBtn" data-ng-click="vm.cancel()" type="button">Cancel</button>
 
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="">
-          <div data-av-calendar data-select-from="vm.setStartDate(startDate)"
-               data-select-to="vm.setEndDate(endDate)"></div>
+      <div class="col-sm-8">
+        <div class="row">
+          <div data-av-calendar
+               data-select-from="vm.setStartDate(startDate)"
+               data-select-to="vm.setEndDate(endDate)">
+          </div>
         </div>
       </div>
     </div>

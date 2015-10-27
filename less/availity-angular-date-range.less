@@ -62,7 +62,6 @@
   margin-top: 1px;
   border-radius: 4px;
   border: 1px solid #eee;
-  display: block !important;
 }
 
 .daterangepicker.opensleft:before {
@@ -179,7 +178,7 @@
 }
 
 .daterangepicker .calendar {
-  //display: none;
+  padding-bottom: 10px;
   margin: -10px 0px;
   max-width: 270px;
 }
@@ -190,15 +189,6 @@
 
 .daterangepicker .calendar.single .calendar-table {
   border: none;
-}
-
-/* Calendars */
-
-.daterangepicker .calendar-table {
-  //border: 1px solid #ddd;
-  padding: 4px;
-  //border-radius: 4px;
-  background: #fff;
 }
 
 .daterangepicker .calendar.left .calendar-table {
@@ -217,8 +207,6 @@
   width: 50px;
   margin-bottom: 0;
 }
-
-/* Text Input Above Each Calendar */
 
 .daterangepicker .input-mini {
   border: 1px solid #ccc;
@@ -261,10 +249,17 @@
   width: 46%;
   padding-bottom: 10px;
   font-size: 12px;
+
 }
 
-.cancelBtn, .applyBtn {
-  width: 46%;
+.daterangepicker {
+  .cancelBtn, .applyBtn {
+    width: 46%;
+  }
+
+  .applyBtn {
+    margin-right: 15px;
+  }
 }
 
 /* Time Picker */
@@ -287,35 +282,6 @@
 .daterangepicker .ranges {
   font-size: 11px;
 }
-
-
-//.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
-//  background: #08c;
-//  border: 1px solid #08c;
-//  color: #fff;
-//}
-//
-//.daterangepicker .calendar table tr td.today {
-//  background-color: #ffc966;
-//  border-color: #f59e00;
-//
-//  &.off {
-//    background: none;
-//    &.in-range {
-//      background: none;
-//    }
-//  }
-//  &.end-date {
-//    &.in-range {
-//      border-color: #3071a9;
-//      background-color: #357ebd;
-//    }
-//  }
-//
-//  &.in-range {
-//    background-color: #ebf4f8;
-//  }
-//}
 
 //Extra Styling
 .hover {

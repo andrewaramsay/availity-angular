@@ -2,68 +2,100 @@
 title: Daterange
 ---
 <div data-ng-controller="DateRangeController">
-
   <div class="guide-example">
-    <div class="form-group">
-      <label for="withIcon">With Icon</label>
-      <div data-ng-model="daterange" data-av-date-range>
-      <div class="input-group date">
+    <form name="daterangeForm">
 
-          <input type="text"
-                 class="form-control"
-                 id="withIcon"
-                 data-ng-click="vm.toggle($event)"
-                 data-ng-model="daterange"
-                 placeholder="Please select a date range."
-          />
-          <span class="input-group-btn" data-toggle="daterangepicker">
-            <button class="btn btn-default" type="button"><span class="icon icon-calendar"></span></button>
-          </span>
+      <div class="form-group">
+        <label for="withIcon">With Icon</label>
+        <div data-av-date-range
+             data-start-date="vm.startDate"
+             data-end-date="vm.endDate">
+          <div class="input-group date">
+            <input type="text"
+                   class="form-control"
+                   id="withIcon"
+                   placeholder="Please select a date range"
+                   value="{{vm.startDate}}{{vm.endDate}}"
+              />
+            <span class="input-group-btn" data-toggle="daterangepicker">
+              <button class="btn btn-default"  type="button"><span class="icon icon-calendar"></span></button>
+            </span>
+          </div>
+
+<!-- <input id="status_date_to" class="form-control ng-pristine ng-valid ng-touched" data-ng-model="vm.advancedSearchCriteria.statusDate.toDate" placeholder="To: mm/dd/yyyy" data-av-datepicker=""> -->
+
         </div>
       </div>
-    </div>
+
+      <div class="form-group">
+        <label for="noIcon">No Icon</label>
+        <div data-av-date-range
+             data-start-date="vm.startDate2"
+             data-end-date="vm.endDate2">
+          <div class="input-group date">
+            <input type="text"
+                   class="form-control"
+                   id="noIcon"
+                   placeholder="Please select a date range"
+                   value="{{vm.startDate2}}{{vm.endDate2}}"
+              />
+          </div>
+
+          <!-- <input id="status_date_to" class="form-control ng-pristine ng-valid ng-touched" data-ng-model="vm.advancedSearchCriteria.statusDate.toDate" placeholder="To: mm/dd/yyyy" data-av-datepicker=""> -->
+
+        </div>
+      </div>
+    </form>
   </div>
 
 
   <code class="language-markup">
-<form name="daterangeForm">
-  <div class="form-group">
-    <label for="withIcon">With Icon</label>
-    <div class='input-group date' >
-      <input type="text"
-       class="form-control"
-       id="withIcon"
-       data-ng-model="demo1.daterange"
-       data-av-date-range
-      />
-      <span class="input-group-btn" data-toggle="daterangepicker">
-        <button class="btn btn-default" type="button"><span class="icon icon-calendar"></span></button>
-      </span>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="noIcon">No Icon</label>
-    <input type="text"
-     class="form-control"
-     id="noIcon"
-     data-ng-model="demo2.daterange"
-     data-av-date-range
-    />
-  </div>
-</form>
+    <form name="daterangeForm">
+      <div class="form-group">
+        <label for="withIcon">With Icon</label>
+        <div data-av-date-range
+             data-start-date="vm.startDate"
+             data-end-date="vm.endDate">
+          <div class="input-group date">
+            <input type="text"
+                   class="form-control"
+                   id="withIcon"
+                   placeholder="Please select a date range"
+                   value="{{vm.startDate}}{{vm.endDate}}"
+              />
+            <span class="input-group-btn" data-toggle="daterangepicker">
+              <button class="btn btn-default"  type="button"><span class="icon icon-calendar"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="noIcon">No Icon</label>
+        <div data-av-date-range
+             data-start-date="vm.startDate2"
+             data-end-date="vm.endDate2">
+          <div class="input-group date">
+            <input type="text"
+                   class="form-control"
+                   id="noIcon"
+                   placeholder="Please select a date range"
+                   value="{{vm.startDate2}}{{vm.endDate2}}"
+              />
+          </div>
+        </div>
+      </div>
+    </form>
 
 <!-- Javascript -->
 <script>
 var demo = angular.module('demo', ['aviality', 'availity-ui']);
 
-demo.controller('DaterangeController', function($scope) {
-  $scope.demo1 = {
-    daterange: new Date()
-  };
+demo.controller('DateRangeController', function($scope) {
+  $scope.startDate = new Date();
+  $scope.endDate = '';
 
-  $scope.demo2 = {
-    daterange: new Date()
-  };
+  $scope.startDate2 = new Date();
+  $scope.endDate2 = '';
 });
 </script>
   </code>

@@ -1,8 +1,8 @@
-<div class="row">
-  <div class="col-md-6">
+
+  <div class="col-sm-6">
     <div class="calendar calendar-left">
       <div class="calendar-header">
-        <i class="icon icon-angle-double-left" ng-click="previous()"></i>
+        <i class="icon icon-angle-double-left" data-ng-click="previous()"></i>
         <span>{{month.format("MMMM YYYY")}}</span>
       </div>
       <div class="week names">
@@ -14,18 +14,18 @@
         <span class="day">Fr</span>
         <span class="day">Sa</span>
       </div>
-      <div class="week" ng-repeat="week in weeksLeft">
+      <div class="week" data-ng-repeat="week in weeksLeft">
         <span class="day"
-              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, startDate: day.date.isSame(selected) }"
-              ng-click="select(day); selectFrom({startDate:day})" ng-repeat="day in week.days">{{day.number}}</span>
+              data-ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, startDate: day.date.isSame(selected) }"
+              data-ng-click="select(day); selectFrom({startDate:day})" data-ng-repeat="day in week.days">{{day.number}}</span>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <div class="calendar calendar-right">
       <div class="calendar-header">
         <span>{{month2.format("MMMM YYYY")}}</span>
-        <i class="icon icon-angle-double-right pull-right" ng-click="next()"></i>
+        <i class="icon icon-angle-double-right pull-right" data-ng-click="next()"></i>
       </div>
       <div class="week names">
         <span class="day">Su</span>
@@ -36,11 +36,10 @@
         <span class="day">Fr</span>
         <span class="day">Sa</span>
       </div>
-      <div class="week" ng-repeat="week in weeksRight">
+      <div class="week" data-ng-repeat="week in weeksRight">
         <span class="day"
-              ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, endDate: day.date.isSame(selected) }"
-              ng-click="select(day); selectTo({endDate:day})" ng-repeat="day in week.days">{{day.number}}</span>
+              data-ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, endDate: day.date.isSame(selected2)}"
+              data-ng-click="selectEnd(day); selectTo({endDate:day})" data-ng-repeat="day in week.days">{{day.number}}</span>
       </div>
     </div>
   </div>
-</div>
